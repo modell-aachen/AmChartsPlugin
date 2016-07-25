@@ -1,0 +1,11 @@
+!noci
+data/System/AmChartsPlugin.txt 0644 Plugin doc page
+data/Sandbox/PluginTestAmChartsPlugin.txt 0644 Plugin examples
+lib/Foswiki/Plugins/AmChartsPlugin.pm 0444 Plugin Perl module
+locale/AmChartsPlugin/de.po 0664
+pub/System/AmChartsPlugin/amcharts/amcharts.js 0644
+pub/System/AmChartsPlugin/amcharts/serial.js 0644
+pub/System/AmChartsPlugin/amcharts/gantt.js 0644
+pub/System/AmChartsPlugin/amcharts/plugins/export/export.js 0644
+pub/System/AmChartsPlugin/amcharts/plugins/export/export.css 0644
+pub/System/AmChartsPlugin/amchartsplugin.js 0644
