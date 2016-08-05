@@ -1,0 +1,46 @@
+%META:TOPICPARENT{name="Plugins"}%
+---+ AmChartsPlugin
+
+%SHORTDESCRIPTION%
+
+This plugin can be used to render Gantt charts based on project data provided by ProjectsAppContrib.
+
+---++ Usage
+The usage of this plugin is currently very limited and only works with specific configurations.
+
+Use the =%<nop>AMCHART%= tag on the project page to load the amChart JavaScript files.
+Then anywhere on the prject page provide a div container with the ganttChart id.
+
+Projects need to have exactly 5 phases for the plugin to work.
+Phase names in the charts are currently hardcoded (via =%<nop>MAKETEXT%=):
+	* Pre-Project phase
+	* Feasibility and planning
+	* Realisation product design
+	* Planning process design
+	* Realisation process design
+
+Additionally tasks in the project need the following fields (besides the required fields for tasks):
+	* =StartDate=
+	* =DueDate=
+	* =Title=
+	* =Type=: Needs to be a select with values =Taskpackage=, =Task= and =Milestone=
+	* =Parent=: Used for the hierarchy Taskpackage -> Task
+
+<!--
+One line description, required for extensions repository catalog.
+   * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
+-->
+
+---++ Installation
+%$INSTALL_INSTRUCTIONS%
+
+---++ Plugin Info
+
+|  Author: | ModellAachen |
+|  Copyright: | &copy; 2016, Modell Aachen GmbH |
+|  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
+|  Release: | %$RELEASE% |
+|  Version: | %$VERSION% |
+|  Change&nbsp;History: | <!-- versions below in reverse order -->&nbsp; |
+|  XX Mmm 20XX (1.0) | Description of change |
+
