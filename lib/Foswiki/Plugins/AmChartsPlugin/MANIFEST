@@ -9,3 +9,10 @@ pub/System/AmChartsPlugin/amcharts/gantt.js 0644
 pub/System/AmChartsPlugin/amcharts/plugins/export/export.js 0644
 pub/System/AmChartsPlugin/amcharts/plugins/export/export.css 0644
 pub/System/AmChartsPlugin/amchartsplugin.js 0644
+pub/System/AmChartsPlugin/amcharts/plugins/export/libs/fabric.js/fabric.min.js 0644
+pub/System/AmChartsPlugin/amcharts/plugins/export/libs/jszip/jszip.min.js 0644
+pub/System/AmChartsPlugin/amcharts/images/dragIconRoundBig.svg 0644
+pub/System/AmChartsPlugin/amcharts/plugins/export/libs/pdfmake/pdfmake.min.js 0644
+pub/System/AmChartsPlugin/amcharts/images/lens.svg 0644
+pub/System/AmChartsPlugin/amcharts/plugins/export/libs/xlsx/xlsx.min.js 0644
+pub/System/AmChartsPlugin/amcharts/plugins/export/libs/FileSaver.js/FileSaver.min.js 0644
