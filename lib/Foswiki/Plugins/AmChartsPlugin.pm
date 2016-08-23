@@ -31,8 +31,10 @@ sub initPlugin {
 
     Foswiki::Func::registerTagHandler( 'AMCHART', \&_AMCHART );
     Foswiki::Func::registerRESTHandler( 'gantt', \&_gantt,
-      http_allow => 'GET'
-      );
+      (http_allow => 'GET',
+       authenticate => 1,
+       validate => 0)
+    );
 
     return 1;
 }
