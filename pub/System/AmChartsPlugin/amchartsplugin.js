@@ -120,5 +120,16 @@ $(function(){
   	var ganttType = "coarse";
   	changeChart(projectId, ganttType);
 
+
+  	$('.tasktracker:visible').livequery( function() {
+  		$(this).on("editorLoad", function(evt, editor){
+	  		$(editor).find("[name='Type']").change(function(evt){
+	  			var $startDateField = $(editor).find(".start-date");
+	  			var showStartDate = (evt.target.value === "Taskpackage");
+	  			showStartDate ? $startDateField.show() : $startDateField.hide();
+	  		});
+	  	});
+  	});
+
 });
 })(jQuery);

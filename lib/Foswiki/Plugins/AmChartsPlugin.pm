@@ -52,7 +52,7 @@ sub _AMCHART {
 <link rel='stylesheet' type='text/css' href='$pluginURL/amcharts/plugins/export/export.css' />
 SCRIPTS
 
-  Foswiki::Func::addToZone( 'script', 'AMCHARTSPLUGIN', $scripts, ('JQUERYPLUGIN::FOSWIKI::PREFERENCES'));
+  Foswiki::Func::addToZone( 'script', 'AMCHARTSPLUGIN', $scripts, ('TASKSAPI::SCRIPTS'));
   return "";
 }
 
