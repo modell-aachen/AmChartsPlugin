@@ -126,7 +126,7 @@ $(function(){
 	  		$(opts.editor).find("[name='Type']").change(function(evt){
 	  			var $startDateField = $(opts.editor).find(".start-date");
 	  			var showStartDate = (evt.target.value === "Taskpackage");
-	  			showStartDate ? $startDateField.show() : $startDateField.hide();
+	  			showStartDate ? $startDateField.css("display", "") : $startDateField.css("display", "none");
 	  		});
 	  	});
   	});
