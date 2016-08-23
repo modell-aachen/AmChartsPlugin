@@ -173,7 +173,10 @@ sub _taskToSegment {
 
   my $result = {};
 
-  my $start = $taskMeta->get('FIELD', 'StartDate')->{value};
+  my $start;
+  if($type eq 'workPackage'){
+    $start = $taskMeta->get('FIELD', 'StartDate')->{value};
+  }
   my $end = $taskMeta->get('FIELD', 'DueDate')->{value};
 
   $start = Foswiki::Time::formatTime($start, "\$year-\$mo-\$day");
