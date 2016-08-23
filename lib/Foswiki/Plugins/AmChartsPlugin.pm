@@ -50,7 +50,7 @@ sub _AMCHART {
 <link rel='stylesheet' type='text/css' href='$pluginURL/amcharts/plugins/export/export.css' />
 SCRIPTS
 
-  Foswiki::Func::addToZone( 'script', 'AMCHARTSPLUGIN', $scripts);
+  Foswiki::Func::addToZone( 'script', 'AMCHARTSPLUGIN', $scripts, ('JQUERYPLUGIN::FOSWIKI::PREFERENCES'));
   return "";
 }
 
@@ -77,8 +77,10 @@ sub _gantt {
 
   #Iterate over phases
   for(my $i=0; $i < 5; $i++){
+    my $prefixM = "";
+    $prefixM = "M" unless $i eq 0;
     my $category = {
-      category => "$i $CATEGORY_MAP{$i}"
+      category => "$prefixM$i $CATEGORY_MAP{$i}"
     };
 
     my $segments = [];

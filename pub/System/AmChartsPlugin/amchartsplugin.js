@@ -1,4 +1,5 @@
-$(document).ready(function(){
+(function($) {
+$(function(){
 	AmCharts.useUTC = true;
 	AmCharts.shortMonthNames = [
 	  'Jan',
@@ -120,3 +121,4 @@ $(document).ready(function(){
   	changeChart(projectId, ganttType);
 
 });
+})(jQuery);
