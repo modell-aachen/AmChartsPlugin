@@ -71,6 +71,7 @@ sub _gantt {
 
   my ($web, $topic) = ($projectId =~ /^(.*)\.(.*)$/);
   my ($meta, undef) = Foswiki::Func::readTopic($web, $topic);
+  Foswiki::Func::pushTopicContext($web, $topic);
 
 
   my $dataProvider = [];
@@ -138,8 +139,9 @@ sub _gantt {
 sub _phaseToSegment {
   my ($meta, $phase) = @_;
 
+  my $phaseColor = Foswiki::Func::getPreferencesValue("GANTT_PHASE_COLOR") || "#D53E4F";
   my $result = {
-    color => '#3288bd',
+    color => $phaseColor,
     type => 'Phase'
   };
 
@@ -176,21 +178,24 @@ sub _taskToSegment {
   $end = Foswiki::Time::formatTime($end, "\$year-\$mo-\$day");
 
   if($type eq 'milestone'){
+    my $milestoneColor = Foswiki::Func::getPreferencesValue("GANTT_MILESTONE_COLOR") || "#F46D43";
     $result->{bullet} = 'diamond';
-    $result->{color}  = '#f46d43';
+    $result->{color}  = $milestoneColor;
     $result->{type} = 'Meilenstein';
     $result->{start} = $end;
     my $title = $taskMeta->get('FIELD', 'Title')->{value};
     $result->{text} = "$title<br></br>Bis: $end";
   }
   elsif($type eq 'workPackage'){
-    $result->{color}  = '#abdda4';
+    my $workpackageColor = Foswiki::Func::getPreferencesValue("GANTT_WORKPACKAGE_COLOR") || "#3288BD";
+    $result->{color}  = $workpackageColor;
     $result->{type} = 'Aufgabenpaket';
     $result->{start} = $start;
     $result->{text} = "von - bis:<br></br>$start - $end";
   }
   elsif($type eq 'task'){
-    $result->{color} = '#1a9850';
+    my $taskColor = Foswiki::Func::getPreferencesValue("GANTT_TASK_COLOR") || "#198F4B";
+    $result->{color} = $taskColor;
     $result->{bullet} = 'circle';
     $result->{type} = 'Aufgabe';
     $result->{start} = $end;
