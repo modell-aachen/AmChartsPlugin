@@ -13,7 +13,7 @@ use version; our $VERSION = version->declare("v1.1.7");
 #
 our $RELEASE = "1.1";
 
-our $SHORTDESCRIPTION = '';
+our $SHORTDESCRIPTION = 'Plugin to show gantt charts.';
 
 our $NO_PREFS_IN_TOPIC = 1;
 
