@@ -176,10 +176,10 @@ sub _taskToSegment {
   my $start;
   if($type eq 'workPackage'){
     $start = $taskMeta->get('FIELD', 'StartDate')->{value};
+    $start = Foswiki::Time::formatTime($start, "\$year-\$mo-\$day");
   }
   my $end = $taskMeta->get('FIELD', 'DueDate')->{value};
 
-  $start = Foswiki::Time::formatTime($start, "\$year-\$mo-\$day");
   $end = Foswiki::Time::formatTime($end, "\$year-\$mo-\$day");
 
   if($type eq 'milestone'){
