@@ -13,7 +13,7 @@ use version; our $VERSION = version->declare("v1.1.7");
 #
 our $RELEASE = "1.1";
 
-our $SHORTDESCRIPTION = '';
+our $SHORTDESCRIPTION = 'Plugin to show gantt charts.';
 
 our $NO_PREFS_IN_TOPIC = 1;
 
@@ -31,8 +31,10 @@ sub initPlugin {
 
     Foswiki::Func::registerTagHandler( 'AMCHART', \&_AMCHART );
     Foswiki::Func::registerRESTHandler( 'gantt', \&_gantt,
-      http_allow => 'GET'
-      );
+      (http_allow => 'GET',
+       authenticate => 1,
+       validate => 0)
+    );
 
     return 1;
 }
@@ -50,7 +52,7 @@ sub _AMCHART {
 <link rel='stylesheet' type='text/css' href='$pluginURL/amcharts/plugins/export/export.css' />
 SCRIPTS
 
-  Foswiki::Func::addToZone( 'script', 'AMCHARTSPLUGIN', $scripts);
+  Foswiki::Func::addToZone( 'script', 'AMCHARTSPLUGIN', $scripts, ('TASKSAPI::SCRIPTS'));
   return "";
 }
 
@@ -71,14 +73,17 @@ sub _gantt {
 
   my ($web, $topic) = ($projectId =~ /^(.*)\.(.*)$/);
   my ($meta, undef) = Foswiki::Func::readTopic($web, $topic);
+  Foswiki::Func::pushTopicContext($web, $topic);
 
 
   my $dataProvider = [];
 
   #Iterate over phases
   for(my $i=0; $i < 5; $i++){
+    my $prefixM = "";
+    $prefixM = "M" unless $i eq 0;
     my $category = {
-      category => "$i $CATEGORY_MAP{$i}"
+      category => "$prefixM$i $CATEGORY_MAP{$i}"
     };
 
     my $segments = [];
@@ -136,8 +141,9 @@ sub _gantt {
 sub _phaseToSegment {
   my ($meta, $phase) = @_;
 
+  my $phaseColor = Foswiki::Func::getPreferencesValue("GANTT_PHASE_COLOR") || "#D53E4F";
   my $result = {
-    color => '#3288bd',
+    color => $phaseColor,
     type => 'Phase'
   };
 
@@ -167,28 +173,34 @@ sub _taskToSegment {
 
   my $result = {};
 
-  my $start = $taskMeta->get('FIELD', 'StartDate')->{value};
+  my $start;
+  if($type eq 'workPackage'){
+    $start = $taskMeta->get('FIELD', 'StartDate')->{value};
+    $start = Foswiki::Time::formatTime($start, "\$year-\$mo-\$day");
+  }
   my $end = $taskMeta->get('FIELD', 'DueDate')->{value};
 
-  $start = Foswiki::Time::formatTime($start, "\$year-\$mo-\$day");
   $end = Foswiki::Time::formatTime($end, "\$year-\$mo-\$day");
 
   if($type eq 'milestone'){
+    my $milestoneColor = Foswiki::Func::getPreferencesValue("GANTT_MILESTONE_COLOR") || "#F46D43";
     $result->{bullet} = 'diamond';
-    $result->{color}  = '#f46d43';
+    $result->{color}  = $milestoneColor;
     $result->{type} = 'Meilenstein';
     $result->{start} = $end;
     my $title = $taskMeta->get('FIELD', 'Title')->{value};
     $result->{text} = "$title<br></br>Bis: $end";
   }
   elsif($type eq 'workPackage'){
-    $result->{color}  = '#abdda4';
+    my $workpackageColor = Foswiki::Func::getPreferencesValue("GANTT_WORKPACKAGE_COLOR") || "#3288BD";
+    $result->{color}  = $workpackageColor;
     $result->{type} = 'Aufgabenpaket';
     $result->{start} = $start;
     $result->{text} = "von - bis:<br></br>$start - $end";
   }
   elsif($type eq 'task'){
-    $result->{color} = '#1a9850';
+    my $taskColor = Foswiki::Func::getPreferencesValue("GANTT_TASK_COLOR") || "#198F4B";
+    $result->{color} = $taskColor;
     $result->{bullet} = 'circle';
     $result->{type} = 'Aufgabe';
     $result->{start} = $end;

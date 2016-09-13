@@ -1,4 +1,5 @@
-$(document).ready(function(){
+(function($) {
+$(function(){
 	AmCharts.useUTC = true;
 	AmCharts.shortMonthNames = [
 	  'Jan',
@@ -119,4 +120,15 @@ $(document).ready(function(){
   	var ganttType = "coarse";
   	changeChart(projectId, ganttType);
 
+
+  	$('.tasktracker:visible').livequery( function() {
+  		$(this).on("editorLoad", function(evt, opts){
+	  		$(opts.editor).find("[name='Type']").change(function(evt){
+	  			var $startDateField = $(opts.editor).find(".start-date");
+	  			var showStartDate = (evt.target.value === "Taskpackage");
+	  			showStartDate ? $startDateField.css("display", "") : $startDateField.css("display", "none");
+	  		});
+	  	});
+  	});
 });
+})(jQuery);
