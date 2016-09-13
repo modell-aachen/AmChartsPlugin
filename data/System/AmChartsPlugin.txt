@@ -19,6 +19,14 @@ Phase names in the charts are currently hardcoded (via =%<nop>MAKETEXT%=):
 	* Planning process design
 	* Realisation process design
 
+Colors in the chart can be configured via WebPreferences. E.g.:
+<verbatim>
+   * Set GANTT_PHASE_COLOR = #00FF00
+   * Set GANTT_MILESTONE_COLOR = #f46d43
+   * Set GANTT_WORKPACKAGE_COLOR = #3288BD
+   * Set GANTT_TASK_COLOR = #198F4B
+</verbatim>
+
 Additionally tasks in the project need the following fields (besides the required fields for tasks):
 	* =StartDate=
 	* =DueDate=
