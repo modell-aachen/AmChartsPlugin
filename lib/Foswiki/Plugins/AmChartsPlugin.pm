@@ -91,7 +91,7 @@ sub _gantt {
 
     #Special case for coarse: Milestones are shown as segments of phases
     if($ganttType eq 'coarse'){
-      my $milestones = Foswiki::Plugins::TasksAPIPlugin::query( (query => {Context => "$projectId" . "M$i", Type => "Milestone"}) );
+      my $milestones = Foswiki::Plugins::TasksAPIPlugin::query( (query => {Milestone => "$projectId" . "M$i", Type => "Milestone"}) );
       foreach my $milestone (@{$milestones->{tasks}}){
         push(@$segments, _taskToSegment($milestone));
       }
@@ -102,7 +102,7 @@ sub _gantt {
 
     next unless $ganttType eq 'detailed' or $ganttType eq 'full';
     #Iterate over work packages (including milestones)
-    my $workPackages = Foswiki::Plugins::TasksAPIPlugin::query( (query => {Context => "$projectId" . "M$i", Parent => ""}, order => "TaskNumber") );
+    my $workPackages = Foswiki::Plugins::TasksAPIPlugin::query( (query => {Milestone => "$projectId" . "M$i", Parent => ""}, order => "TaskNumber") );
     foreach my $package (@{$workPackages->{tasks}}){
       my $packageNumber = $package->{meta}->get('FIELD', "TaskNumber")->{value};
       my $packageTitle = $package->{meta}->get('FIELD', "Title")->{value};
@@ -120,7 +120,7 @@ sub _gantt {
       next unless $ganttType eq "full";
 
       #Iterate over tasks ()
-      my $tasks = Foswiki::Plugins::TasksAPIPlugin::query( (query => {Context => "$projectId" . "M$i", Parent => $package->{id}}, order => "TaskNumber") );
+      my $tasks = Foswiki::Plugins::TasksAPIPlugin::query( (query => {Milestone => "$projectId" . "M$i", Parent => $package->{id}}, order => "TaskNumber") );
       foreach my $task (@{$tasks->{tasks}}){
         my $taskTitle = $task->{meta}->get('FIELD', "Title")->{value};
         my $taskSegments = [];

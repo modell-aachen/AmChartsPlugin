@@ -129,6 +129,9 @@ $(function(){
 	  			showStartDate ? $startDateField.css("display", "") : $startDateField.css("display", "none");
 	  		});
 	  	});
+        $(this).on("afterSave", function(){
+            changeChart(projectId, ganttType);
+        });
   	});
 });
 })(jQuery);
